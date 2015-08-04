@@ -6,6 +6,9 @@
 # ToDo
 # -  Make code work for all IP address (not dependent on unique last octet)
 import sys
+import datetime
+now="Started Processing tracefile at:"+str(datetime.datetime.now())
+print(now)
 with open(sys.argv[1]) as f:
 	lines =  f.read().splitlines() 
 #Initialize Variables
@@ -128,8 +131,10 @@ output.append(bandwidthefficiency)
 # Change Formatting from python list to csv
 temp=str(output)
 output=temp.replace("[", "")
-temp=output.replace("]", "\n")
+temp=output.replace("]", " ")
 print(temp)
 with open(sys.argv[2], "a") as myfile:
 	myfile.write(temp)
+now="Tracefile Processing completed at:"+str(datetime.datetime.now())
+print(now)
 

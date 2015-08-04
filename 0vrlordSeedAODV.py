@@ -15,7 +15,7 @@ import sys
 import os
 tempfilename="2ot.cvs"
 outputfilename=sys.argv[1]
-nodePauseTime=[0,10,20,30,40,50,60,70,80,90]
+nodePauseTime=[0,100,200,300,400,500,600,700,800,900]
 nFlows=[5,10,20,29]
 Proto='AODV' #, 'AODV'] #, 'DSDV', 'DSR', 'OLSR']
 nNodes=[10,15,20,25,30,35,40,45,50]
@@ -34,7 +34,7 @@ while i<len(nodePauseTime):
 		k=0
 		while k<len(SeedRun):
         		#print "Proto=%s SeedRun=%d nodePauseTime=%d nFlows=%d \n" %(Proto, SeedRun[k], nodePauseTime[i], nFlows[j])
-                	settings= "scratch/"+Proto+" --RngRun="+str(SeedRun[k])+ " --nodePauseTime="+str(nodePauseTime[i])+" --nFlows="+str(nFlows[j])+" --totalTime=100 --nodeMaxSpeed=20"
+                	settings= "scratch/"+Proto+" --RngRun="+str(SeedRun[k])+ " --nodePauseTime="+str(nodePauseTime[i])+" --nFlows="+str(nFlows[j])+" --totalTime=1000 --nodeMaxSpeed=20"
                 	print (settings)
 			call(["./waf", "--run" , settings])
 			procfile="./0p"+Proto+".py "+Proto+".tr "+tempfilename
@@ -55,9 +55,7 @@ while i<len(nodePauseTime):
 			tempdelay+=float(temp.split(',')[0])
 			temp=line.split(' ')[3]
 			tempPDR+=float(temp.split(',')[0])
-			avglen+=1
-		copytemp="cp "+tempfilename+" "+tempfilename+str(nFlows[j])+str(nodePauseTime[i])
-		os.system(copytemp)  
+			avglen+=1 
 		removetemp="rm "+tempfilename
 		os.system(removetemp)
 		avglen=float(avglen)

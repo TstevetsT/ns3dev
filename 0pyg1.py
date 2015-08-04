@@ -44,11 +44,7 @@ for j in mlfnew:
 		if alldata[i][multiline]==j:
 			x.append(int(alldata[i][xcol]))
 			y.append(float(alldata[i][ycol]))
-			if "DGGF" in alldata[i][multiline]:
-				ls='-'
-			else:
-				ls='--'
-	ax.plot(x,y,linestyle=ls,markersize=10)
+	ax.plot(x,y,markersize=10)
 	x=[]
 	y=[]
 
@@ -62,9 +58,9 @@ ax.legend(mlfnew, title=multilabel, loc='upper center', bbox_to_anchor=(0.2, -0.
           fancybox=True, shadow=True, ncol=4, prop={'size':8})
 #ax.legend(mlfnew, title=multilabel)
 
-plt.show()
-#plt.axis([0,90,0,45])
-
+#plt.axis([0,900,0,4.5]) #pauseVdelay
+#plt.axis([0,900,.84,1]) #pauseVPDR 
+plt.axis([0,900,1,2.8]) #pauseVPDR 
 
 #Next line will plot an interactive plot
 plt.show()

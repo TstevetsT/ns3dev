@@ -15,26 +15,26 @@ import sys
 import os
 tempfilename="2ot.cvs"
 outputfilename=sys.argv[1]
-nodePauseTime=[0,100,200,300,400,500,600,700,800,900]
-nFlows=[5,10,20,29]
-Proto='DGGF' #, 'AODV'] #, 'DSDV', 'DSR', 'OLSR']
+nodePauseTime=[0,10,20,30,40,50,60,70,80,90]
+nodeMaxSpeed=[20,25,30,35,40,45,50]
 nNodes=[10,15,20,25,30,35,40,45,50]
+nFlows=[5,10,20,29]
+Proto='AODV' #, 'AODV'] #, 'DSDV', 'DSR', 'OLSR']
 sFactor=[0,20,40,60,80,100,120,140,160,180,200]
 fwdArch=[-200,-150,-100,-50,0,50,100,150,200]
 SeedValue=[2,3,4,5,6,7,8,9,10]
 SeedRun=[10,200,3,40,500,6,70,800,9]
 
-header="Proto, nodePauseTime, nFlows, Average hops/flow, Average delay (ms), Average PDR\n"
+header="Proto, nodeMaxSpeed, nNodes, Average hops/flow, Average delay (ms), Average PDR\n"
 with open(outputfilename, "a") as myfile:
         myfile.write(header)
 i=0
-while i<len(nodePauseTime):
+while i<len(nodeMaxSpeed):
         j=0
-        while j<len(nFlows):
+        while j<len(nNodes):
 		k=0
 		while k<len(SeedRun):
-        		#print "Proto=%s SeedRun=%d nodePauseTime=%d nFlows=%d \n" %(Proto, SeedRun[k], nodePauseTime[i], nFlows[j])
-                	settings= "scratch/"+Proto+" --RngRun="+str(SeedRun[k])+ " --nodePauseTime="+str(nodePauseTime[i])+" --nFlows="+str(nFlows[j])+" --totalTime=1000 --nodeMaxSpeed=20"
+                	settings= "scratch/"+Proto+" --RngRun="+str(SeedRun[k])+ " --nodePauseTime=0 --nFlows=9 --totalTime=100 --nodeMaxSpeed="+str(nodeMaxSpeed)
                 	print (settings)
 			call(["./waf", "--run" , settings])
 			procfile="./0p"+Proto+".py "+Proto+".tr "+tempfilename
@@ -55,7 +55,7 @@ while i<len(nodePauseTime):
 			tempdelay+=float(temp.split(',')[0])
 			temp=line.split(' ')[3]
 			tempPDR+=float(temp.split(',')[0])
-			avglen+=1
+			avglen+=1 
 		removetemp="rm "+tempfilename
 		os.system(removetemp)
 		avglen=float(avglen)
